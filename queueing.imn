@@ -1,0 +1,251 @@
+node n1 {
+    type router
+    model PC
+    network-config {
+	hostname supplier
+	!
+	interface eth0
+	 ip address 172.16.0.20/24
+	 ipv6 address 2001:0::20/64
+	!
+    }
+    canvas c1
+    iconcoords {253.0 143.0}
+    labelcoords {253.0 175.0}
+    interface-peer {eth0 n2}
+}
+
+node n2 {
+    type lanswitch
+    network-config {
+	hostname swin
+	!
+    }
+    canvas c1
+    iconcoords {400.0 143.0}
+    labelcoords {400.0 167.0}
+    interface-peer {e0 n1}
+    interface-peer {e1 n6}
+}
+
+node n3 {
+    type router
+    model PC
+    network-config {
+	hostname p1
+	!
+	interface eth0
+	 ip address 172.16.0.22/24
+	 ipv6 address 2001:0::22/64
+	!
+    }
+    canvas c1
+    iconcoords {502.0 238.0}
+    labelcoords {502.0 270.0}
+    interface-peer {eth0 n6}
+    services {DefaultRoute UserDefined}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('/home/packit/hw6b/mmxx_processor.py', )
+	meta=MMXX Queueing Processor
+	starttime=3
+	}
+    }
+}
+
+node n4 {
+    type lanswitch
+    network-config {
+	hostname swout
+	!
+    }
+    canvas c1
+    iconcoords {587.0 142.0}
+    labelcoords {587.0 166.0}
+    interface-peer {e0 n6}
+    interface-peer {e1 n5}
+}
+
+node n5 {
+    type router
+    model PC
+    network-config {
+	hostname consumer
+	!
+	interface eth0
+	 ip address 172.16.0.21/24
+	 ipv6 address 2001:0::21/64
+	!
+    }
+    canvas c1
+    iconcoords {715.0 141.0}
+    labelcoords {715.0 173.0}
+    interface-peer {eth0 n4}
+    custom-config {
+	custom-config-id service:UserDefined
+	custom-command UserDefined
+	config {
+	cmdup=('/home/packit/hw6b/mmxx_sink.py', )
+	}
+    }
+    services {DefaultRoute UserDefined}
+}
+
+node n6 {
+    type lanswitch
+    network-config {
+	hostname swp
+	!
+    }
+    canvas c1
+    iconcoords {499.0 142.0}
+    labelcoords {499.0 166.0}
+    interface-peer {e0 n2}
+    interface-peer {e1 n4}
+    interface-peer {e2 n3}
+}
+
+link l1 {
+    nodes {n1 n2}
+    bandwidth 0
+}
+
+link l2 {
+    nodes {n2 n6}
+    bandwidth 0
+}
+
+link l3 {
+    nodes {n6 n4}
+    bandwidth 0
+}
+
+link l4 {
+    nodes {n4 n5}
+    bandwidth 0
+}
+
+link l5 {
+    nodes {n6 n3}
+    bandwidth 0
+}
+
+annotation a1 {
+    iconcoords {179.0 56.0 373.0 258.0}
+    type rectangle
+    label {}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #C0C0FF
+    width 0
+    border black
+    rad 25
+    canvas c1
+}
+
+annotation a2 {
+    iconcoords {226.0 220.0}
+    type text
+    label {ARRIVALS}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    canvas c1
+}
+
+annotation a3 {
+    type text
+    iconcoords {328.0 223.0}
+    label {}
+    canvas c1
+}
+
+annotation a4 {
+    iconcoords {613 55 811 261}
+    type rectangle
+    label {}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #C0C0FF
+    width 0
+    border black
+    rad 25
+    canvas c1
+}
+
+annotation a5 {
+    iconcoords {653.0 223.0}
+    type text
+    label {DEPARTURES}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    canvas c1
+}
+
+annotation a6 {
+    iconcoords {400.0 174.0 602.0 445.0}
+    type rectangle
+    label {}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    color #c0c041
+    width 0
+    border black
+    rad 25
+    canvas c1
+}
+
+annotation a7 {
+    iconcoords {448.0 430.0}
+    type text
+    label {PROCESSORS}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {12}
+    canvas c1
+}
+
+annotation a8 {
+    iconcoords {374.0 29.0}
+    type text
+    label {M/M/n/n Queues}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize {22}
+    effects {bold}
+    canvas c1
+}
+
+annotation a9 {
+    type text
+    iconcoords {463.0 35.0}
+    label {}
+    canvas c1
+}
+
+canvas c1 {
+    name {Canvas1}
+}
+
+option global {
+    interface_names no
+    ip_addresses yes
+    ipv6_addresses no
+    node_labels yes
+    link_labels yes
+    show_api yes
+    background_images no
+    annotations yes
+    grid no
+    traffic_start 0
+}
+
+option session {
+}
+
