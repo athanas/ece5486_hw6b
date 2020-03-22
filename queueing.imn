@@ -40,8 +40,8 @@ node n3 {
 	!
     }
     canvas c1
-    iconcoords {502.0 238.0}
-    labelcoords {502.0 270.0}
+    iconcoords {502.0 240.0}
+    labelcoords {502.0 272.0}
     interface-peer {eth0 n6}
     services {DefaultRoute UserDefined}
     custom-config {
@@ -88,6 +88,7 @@ node n5 {
 	custom-command UserDefined
 	config {
 	cmdup=('/home/packit/hw6b/mmxx_sink.py', )
+	meta=MMXX Sink Device
 	}
     }
     services {DefaultRoute UserDefined}
@@ -225,6 +226,50 @@ annotation a8 {
 annotation a9 {
     type text
     iconcoords {463.0 35.0}
+    label {}
+    canvas c1
+}
+
+annotation a10 {
+    iconcoords {218.0 242.0}
+    type text
+    label {UDP Port 10000}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize 10
+    canvas c1
+}
+
+annotation a11 {
+    type text
+    iconcoords {295.0 237.0}
+    label {}
+    canvas c1
+}
+
+annotation a12 {
+    iconcoords {662.0 246.0}
+    type text
+    label {UDP Port 10001}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize 10
+    canvas c1
+}
+
+annotation a13 {
+    iconcoords {610.0 277.0}
+    type text
+    label {Output file:  /home/packit/Desktop/processed_pkts.txt}
+    labelcolor black
+    fontfamily {Arial}
+    fontsize 9
+    canvas c1
+}
+
+annotation a14 {
+    type text
+    iconcoords {701.0 292.0}
     label {}
     canvas c1
 }

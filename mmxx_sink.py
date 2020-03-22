@@ -2,7 +2,7 @@
 import socket
 import os
 
-CUSTOMERS = 1000
+CUSTOMERS = 2000
 
 # Create a sink for absorbing packets from the processor(s)
 sock = socket.socket( socket.AF_INET, socket.SOCK_DGRAM)
