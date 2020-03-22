@@ -131,7 +131,6 @@ node n5 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('/home/packit/hw6b/mmxx_sink.py', )
 	meta=MMXX Sink Device
 	}
     }
