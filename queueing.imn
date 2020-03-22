@@ -48,9 +48,53 @@ node n3 {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
-	cmdup=('/home/packit/hw6b/mmxx_processor.py', )
+	files=('mmxx_processor.py', )
 	meta=MMXX Queueing Processor
-	starttime=3
+	}
+    }
+    custom-config {
+	custom-config-id service:UserDefined:mmxx_processor.py
+	custom-command mmxx_processor.py
+	config {
+	#!/usr/bin/env python 
+	import socket
+	from time import sleep
+	from random import random
+	from math import log
+	
+	# Mean value of the processing rate of packets
+	MU = 50.0   # packets per second
+	
+	# Create a buffer just large enough to hold one packet (queue size = 1)
+	RECV_BUF_SIZE = 10
+	
+	# Model the exponential distribution generator for inter-packet delay
+	def exp_delay(x):
+	    return -log(1.0 - random())/x
+	
+	# Create a socket for broadcasting: 
+	sock = socket.socket( socket.AF_INET, socket.SOCK_DGRAM)
+	sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+	sock.setsockopt( socket.SOL_SOCKET, socket.SO_RCVBUF, RECV_BUF_SIZE)
+	sock.setblocking(0)
+	sock.bind(('', 10000))
+	
+	while True:
+	    # Receive from incoming, work (delay), and send out
+	    try: 
+	       data, address = sock.recvfrom(1024)
+	       # print("DATA: "+data+"  ADDR: "+str(address))
+	       sock.sendto(data, ('255.255.255.255', 10001))
+	       sleep(exp_delay(MU))
+	       while True: sock.recvfrom(1024)  # Flush pkts that came in while sleeping
+	
+	    except socket.error:
+	       sleep(0.001)
+	       continue
+	
+	
+	
 	}
     }
 }
@@ -254,16 +298,6 @@ annotation a12 {
     labelcolor black
     fontfamily {Arial}
     fontsize 10
-    canvas c1
-}
-
-annotation a13 {
-    iconcoords {610.0 277.0}
-    type text
-    label {Output file:  /home/packit/Desktop/processed_pkts.txt}
-    labelcolor black
-    fontfamily {Arial}
-    fontsize 9
     canvas c1
 }
 
