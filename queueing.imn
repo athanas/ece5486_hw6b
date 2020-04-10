@@ -49,6 +49,7 @@ node n3 {
 	custom-command UserDefined
 	config {
 	files=('mmxx_processor.py', )
+	cmdup=('python mmxx_processor.py', )
 	meta=MMXX Queueing Processor
 	}
     }
@@ -279,7 +280,7 @@ annotation a10 {
     label {UDP Port 10000}
     labelcolor black
     fontfamily {Arial}
-    fontsize 10
+    fontsize {10}
     canvas c1
 }
 
@@ -296,7 +297,7 @@ annotation a12 {
     label {UDP Port 10001}
     labelcolor black
     fontfamily {Arial}
-    fontsize 10
+    fontsize {10}
     canvas c1
 }
 
